@@ -1,22 +1,23 @@
 //
 // With credits to https://github.com/eugeneware/ffmpeg-static
 //
-var os = require('os');
-var path = require('path');
+const os = require('os');
+const path = require('path');
 
-var platform = os.platform();
+const platform = os.platform();
 if (platform !== 'darwin' && platform !=='linux' && platform !== 'win32') {
   console.error('Unsupported platform.');
   process.exit(1);
 }
 
-var arch = os.arch();
-if (platform === 'darwin' && arch !== 'x64') {
+const arch = os.arch();
+
+if (platform === 'darwin' && !['x64', 'arm64'].includes(arch)) {
   console.error('Unsupported architecture.');
   process.exit(1);
 }
 
-var ffprobePath = path.join(
+const ffprobePath = path.join(
   __dirname,
   'bin',
   platform,
